@@ -1,0 +1,6 @@
+.*.swp
+.deps
+
+*.log
+*.mk
+*.o
