@@ -24,13 +24,13 @@ static void dump_to_pgm(void *data, struct fb_fix_screeninfo *fixinfo, struct fb
     int stride;
     char *pixels;
 
-    if ((pgm = open("fb0.pgm", O_RDWR | O_CREAT)) < 0) {
+    if ((pgm = open("fb0.ppm", O_RDWR | O_CREAT, 0644)) < 0) {
         ERROR("Open fb0.pgm error");
     }
 
     w = varinfo->xres;
     h = varinfo->yres;
-    dprintf(pgm, "P5\n%u %u 255\n", w, h);
+    dprintf(pgm, "P6\n%u %u 255\n", w, h);
 
     for (y = 0; y < h; y++) {
         stride = (y + varinfo->yoffset) * fixinfo->line_length; 
@@ -61,20 +61,13 @@ int main(int argc, char *argv[])
         ERROR("Get variable screen info error");
     }
 
-    varinfo.xres = 1024;
-    varinfo.yres = 768;
-
-    if (ioctl(fb0, FBIOPUT_VSCREENINFO, &varinfo) < 0) {
-        close(fb0);
-        ERROR("Get variable screen info error");
-    }
-
     if (ioctl(fb0, FBIOGET_FSCREENINFO, &fixinfo) < 0) {
         close(fb0);
         ERROR("Get fixed screen info error");
     }
 
     fbdata = mmap(NULL, fixinfo.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fb0, 0);
+
     if (((void*) -1) == fbdata) {
         close(fb0);
         ERROR("Map memory error");

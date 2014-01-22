@@ -1,3 +1,5 @@
 *.pgm
+*.raw
+
 fbinfo
 fb2pgm

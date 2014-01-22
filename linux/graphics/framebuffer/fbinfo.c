@@ -67,14 +67,6 @@ int main(int argc, char *argv[])
     }
 
     print_var_screen_info(&varinfo);
-    varinfo.bits_per_pixel = 32;
-
-    if (ioctl(fb0, FBIOPUT_VSCREENINFO, &varinfo) < 0) {
-        close(fb0);
-        ERROR("Set variable screen info error");
-    }
-
-    print_var_screen_info(&varinfo);
 
     if (ioctl(fb0, FBIOGET_FSCREENINFO, &fixinfo) < 0) {
         close(fb0);
@@ -82,7 +74,6 @@ int main(int argc, char *argv[])
     }
 
     print_fix_screen_info(&fixinfo);
-    close(fb0);
 
-    return 0;
+    return close(fb0);
 }
