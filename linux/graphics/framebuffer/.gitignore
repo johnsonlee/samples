@@ -1,5 +1,7 @@
+*.mk
 *.pgm
 *.raw
+*.Makefile
 
-fbinfo
-fb2pgm
+Makefile
+out
