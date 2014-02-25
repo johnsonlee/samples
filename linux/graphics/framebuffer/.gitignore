@@ -3,5 +3,7 @@
 *.raw
 *.Makefile
 
+fb2pgm
+fbinfo
 Makefile
 out
